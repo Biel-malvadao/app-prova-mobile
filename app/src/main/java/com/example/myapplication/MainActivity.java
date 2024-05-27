@@ -1,16 +1,18 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText nameField, emailField, phoneField, addressField, cityField, stateField, zipCodeField, countryField, usernameField, passwordField;
+    private EditText nameField, emailField, phoneField, addressField, usernameField, passwordField;
+    private Spinner citySpinner, stateSpinner;
     private Button submitButton;
 
     @Override
@@ -22,13 +24,21 @@ public class MainActivity extends AppCompatActivity {
         emailField = findViewById(R.id.emailField);
         phoneField = findViewById(R.id.phoneField);
         addressField = findViewById(R.id.addressField);
-        cityField = findViewById(R.id.cityField);
-        stateField = findViewById(R.id.stateField);
-        zipCodeField = findViewById(R.id.zipCodeField);
-        countryField = findViewById(R.id.countryField);
         usernameField = findViewById(R.id.usernameField);
         passwordField = findViewById(R.id.passwordField);
+        citySpinner = findViewById(R.id.citySpinner);
+        stateSpinner = findViewById(R.id.stateSpinner);
         submitButton = findViewById(R.id.submitButton);
+
+        ArrayAdapter<CharSequence> cityAdapter = ArrayAdapter.createFromResource(this,
+                R.array.cities_array, android.R.layout.simple_spinner_item);
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        citySpinner.setAdapter(cityAdapter);
+
+        ArrayAdapter<CharSequence> stateAdapter = ArrayAdapter.createFromResource(this,
+                R.array.states_array, android.R.layout.simple_spinner_item);
+        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        stateSpinner.setAdapter(stateAdapter);
 
         submitButton.setOnClickListener(view -> submitForm());
     }
@@ -38,10 +48,8 @@ public class MainActivity extends AppCompatActivity {
         String email = emailField.getText().toString();
         String phone = phoneField.getText().toString();
         String address = addressField.getText().toString();
-        String city = cityField.getText().toString();
-        String state = stateField.getText().toString();
-        String zipCode = zipCodeField.getText().toString();
-        String country = countryField.getText().toString();
+        String city = citySpinner.getSelectedItem().toString();
+        String state = stateSpinner.getSelectedItem().toString();
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
 
@@ -69,10 +77,12 @@ public class MainActivity extends AppCompatActivity {
             showToast("Estado é obrigatório!");
             return;
         }
+        String zipCode = null;
         if (!ValidationHelper.isValidZipCode(zipCode)) {
             showToast("CEP inválido! Deve estar no formato 12345-678.");
             return;
         }
+        String country = null;
         if (!ValidationHelper.isNotEmpty(country)) {
             showToast("País é obrigatório!");
             return;

@@ -35,29 +35,17 @@
             android:layout_height="wrap_content"
             android:hint="Endereço" />
 
-        <EditText
-            android:id="@+id/cityField"
+        <Spinner
+            android:id="@+id/citySpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Cidade" />
+            android:hint="Selecione a Cidade" />
 
-        <EditText
-            android:id="@+id/stateField"
+        <Spinner
+            android:id="@+id/stateSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Estado" />
-
-        <EditText
-            android:id="@+id/zipCodeField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="CEP" />
-
-        <EditText
-            android:id="@+id/countryField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="País" />
+            android:hint="Selecione o Estado" />
 
         <EditText
             android:id="@+id/usernameField"
